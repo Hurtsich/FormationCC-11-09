@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="CompilerConfiguration">
+    <annotationProcessing>
+      <profile name="Maven default annotation processors profile" enabled="true">
+        <sourceOutputDir name="target/generated-sources/annotations" />
+        <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
+        <outputRelativeToContentRoot value="true" />
+        <module name="smells-uneffjava-immut-end" />
+        <module name="smells-autres-getset-start" />
+        <module name="supple-guards-start" />
+        <module name="supple-vo-end" />
+        <module name="smells-uneffjava-arrobs-start" />
+        <module name="rappel-java8" />
+        <module name="outils-inspections-end" />
+        <module name="outils-javac-start" />
+        <module name="supple-seff-mid" />
+        <module name="smells-mf-primitive-end" />
+        <module name="solid-lsp-start" />
+        <module name="outils-javac-end" />
+        <module name="smells-uneffjava-obsol-start" />
+        <module name="supple-iri-start" />
+        <module name="smells-mf-longclass-end" />
+        <module name="solid-ocp-start" />
+        <module name="smells-autres-isnota-end" />
+        <module name="smells-uneffjava-seenoevil-start" />
+        <module name="smells-autres-isnota-start" />
+        <module name="supple-sym-start" />
+        <module name="smells-uneffjava-obsol-end" />
+        <module name="smells-autres-escalier-end" />
+        <module name="smells-mf-dupclass-end" />
+        <module name="principes-yagni-start" />
+        <module name="supple-sym-end" />
+        <module name="smells-autres-deadcode-end" />
+        <module name="smells-autres-escalier-start" />
+        <module name="smells-autres-modtech-end" />
+        <module name="smells-mf-dupmethod-end" />
+        <module name="solid-dip-start" />
+        <module name="smells-uneffjava-arrobs-end" />
+        <module name="smells-uneffjava-seenoevil-end" />
+        <module name="outils-inspections-start" />
+        <module name="smells-mf-longmethod-start" />
+        <module name="smells-mf-dupclass-start" />
+        <module name="solid-isp-end" />
+        <module name="smells-autres-editorialiste-end" />
+        <module name="supple-seff-start" />
+        <module name="smells-autres-modtech-start" />
+        <module name="supple-iri-end" />
+        <module name="smells-mf-dupmethod-start" />
+        <module name="solid-srp-start" />
+        <module name="principes-yagni-end" />
+        <module name="solid-ocp-end" />
+        <module name="solid-lsp-end" />
+        <module name="smells-mf-primitive-start" />
+        <module name="solid-isp-start" />
+        <module name="smells-uneffjava-eqhash-end" />
+        <module name="solid-srp-end" />
+        <module name="solid-dip-end" />
+        <module name="supple-seff-end" />
+        <module name="supple-guards-end" />
+        <module name="smells-uneffjava-immut-start" />
+        <module name="supple-vo-start" />
+        <module name="smells-autres-getset-end" />
+        <module name="smells-autres-deadcode-start" />
+        <module name="smells-autres-editorialiste-start" />
+        <module name="smells-mf-longclass-start" />
+        <module name="smells-uneffjava-eqhash-start" />
+        <module name="smells-mf-longmethod-end" />
+      </profile>
+    </annotationProcessing>
+  </component>
+  <component name="JavacSettings">
+    <option name="ADDITIONAL_OPTIONS_OVERRIDE">
+      <module name="outils-javac-end" options="-Werror -Xlint:all,-serial" />
+      <module name="outils-javac-start" options="-Xlint:all,-serial" />
+    </option>
+  </component>
+</project>
