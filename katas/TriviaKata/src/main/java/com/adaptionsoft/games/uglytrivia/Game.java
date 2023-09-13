@@ -1,6 +1,9 @@
 package com.adaptionsoft.games.uglytrivia;
 
-import java.util.*;
+import java.util.ArrayList;
+import java.util.LinkedList;
+import java.util.List;
+import java.util.Random;
 
 ///////////////////////////////////////////////
 ///                                          //
@@ -17,10 +20,11 @@ import java.util.*;
 /// The Game
 /// </summary>
 public class Game {
-    public static final int NB_TURNS = 50;
-    public final int PLAYER_MAX = 6;
+    public static final Random RAND = new Random();
 
+    public static final int NB_TURNS = 50;
     public static final int COINS_TO_WIN = 6;
+    public final int PLAYER_MAX = 6;
     List<String> players = new ArrayList<>();
     int[] places = new int[PLAYER_MAX];
     int[] purses = new int[PLAYER_MAX];
@@ -62,6 +66,10 @@ public class Game {
         return players.get(this.currentPlayerIndex);
     }
 
+    public void roll() {
+        this.roll(RAND.nextInt(5) + 1);
+    }
+
     public void roll(int roll) {
         System.out.println(getCurrentPlayerName() + " is the current player");
         System.out.println("They have rolled a " + roll);
@@ -81,17 +89,9 @@ public class Game {
         moveCurrentPlayer(roll);
         System.out.println(getCurrentPlayerName() + "'s new location is " + places[this.currentPlayerIndex]);
         System.out.println("The category is " + currentCategory());
-        askQuestion();
     }
 
-    private void moveCurrentPlayer(int roll) {
-        places[this.currentPlayerIndex] = places[this.currentPlayerIndex] + roll;
-        if (places[this.currentPlayerIndex] > 11) {
-            places[this.currentPlayerIndex] = places[this.currentPlayerIndex] - 12;
-        }
-    }
-
-    private void askQuestion() {
+    public void askQuestion() {
         if (currentCategory() == "Pop")
             System.out.println(popQuestions.remove(0));
         if (currentCategory() == "Science")
@@ -102,6 +102,12 @@ public class Game {
             System.out.println(rockQuestions.remove(0));
     }
 
+    private void moveCurrentPlayer(int roll) {
+        places[this.currentPlayerIndex] = places[this.currentPlayerIndex] + roll;
+        if (places[this.currentPlayerIndex] > 11) {
+            places[this.currentPlayerIndex] = places[this.currentPlayerIndex] - 12;
+        }
+    }
 
     private String currentCategory() {
         if (places[currentPlayerIndex] == 0) return "Pop";
@@ -116,21 +122,6 @@ public class Game {
         return "Rock";
     }
 
-
-    /**
-     * To call when the answer is right
-     *
-     * @return
-     */
-    public Boolean wasCorrectlyAnswered() {
-        if (!inPenaltyBox[currentPlayerIndex] || isGettingOutOfPenaltyBox) {
-            System.out.println("Answer was correct!!!!");
-            earnCoin();
-            return hasWinner();
-        }
-        return false;
-    }
-
     public void nextPlayer() {
         currentPlayerIndex++;
         if (currentPlayerIndex == players.size()) {
@@ -139,14 +130,15 @@ public class Game {
 
     }
 
-    private boolean hasWinner() {
+    public boolean hasWinner() {
         return purses[currentPlayerIndex] == COINS_TO_WIN;
     }
 
     public void answerQuestion(int answer) {
-        if (!inPenaltyBox[currentPlayerIndex] || isGettingOutOfPenaltyBox) {
-            System.out.println("Answer was correct!!!!");
-            earnCoin();
+        if (answer != 7) {
+            wasCorrectlyAnswered();
+        } else {
+            wrongAnswer();
         }
     }
 
@@ -158,20 +150,35 @@ public class Game {
                 + " Gold Coins.");
     }
 
+
+
     /**
      * To call when the answer is right
      *
      * @return
      */
-    public boolean wrongAnswer() {
+    @Deprecated
+    public Boolean wasCorrectlyAnswered() {
+        rightAnswer();
+        return hasWinner();
+    }
+
+    public void rightAnswer(){
+        if (!inPenaltyBox[currentPlayerIndex] || isGettingOutOfPenaltyBox) {
+            System.out.println("Answer was correct!!!!");
+            earnCoin();
+        }
+    }
+
+    /**
+     * To call when the answer is right
+     *
+     * @return
+     */
+    public void wrongAnswer() {
         System.out.println("Question was incorrectly answered");
         System.out.println(players.get(currentPlayerIndex) + " was sent to the penalty box");
         inPenaltyBox[currentPlayerIndex] = true;
-
-        currentPlayerIndex++;
-        if (currentPlayerIndex == players.size()) currentPlayerIndex = 0;
-        // should always return false
-        return true;
     }
 
 }
