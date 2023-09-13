@@ -19,6 +19,8 @@ import java.util.*;
 public class Game {
     public static final int NB_TURNS = 50;
     public final int PLAYER_MAX = 6;
+
+    public static final int COINS_TO_WIN = 6;
     List<String> players = new ArrayList<>();
     int[] places = new int[PLAYER_MAX];
     int[] purses = new int[PLAYER_MAX];
@@ -121,39 +123,39 @@ public class Game {
      * @return
      */
     public Boolean wasCorrectlyAnswered() {
-        if (inPenaltyBox[currentPlayerIndex]) {
-            if (isGettingOutOfPenaltyBox) {
-                extracted();
-            } else {
-                currentPlayerIndex++;
-                if (currentPlayerIndex == players.size()) currentPlayerIndex = 0;
-                return true;
-            }
+        if (!inPenaltyBox[currentPlayerIndex] || isGettingOutOfPenaltyBox) {
+            System.out.println("Answer was correct!!!!");
+            earnCoin();
+            return hasWinner();
+        }
+        return false;
+    }
 
+    public void nextPlayer() {
+        currentPlayerIndex++;
+        if (currentPlayerIndex == players.size()) {
+            currentPlayerIndex = 0;
+        }
 
-        } else {
+    }
 
-            return extracted();
+    private boolean hasWinner() {
+        return purses[currentPlayerIndex] == COINS_TO_WIN;
+    }
+
+    public void answerQuestion(int answer) {
+        if (!inPenaltyBox[currentPlayerIndex] || isGettingOutOfPenaltyBox) {
+            System.out.println("Answer was correct!!!!");
+            earnCoin();
         }
     }
 
-    private boolean extracted() {
-        System.out.println("Answer was corrent!!!!");
+    private void earnCoin() {
         purses[currentPlayerIndex]++;
         System.out.println(players.get(currentPlayerIndex)
                 + " now has "
                 + purses[currentPlayerIndex]
                 + " Gold Coins.");
-
-        boolean winner = hasWinner();
-        currentPlayerIndex++;
-        if (currentPlayerIndex == players.size()) currentPlayerIndex = 0;
-
-        return winner;
-    }
-
-    private boolean hasWinner() {
-        return !(purses[currentPlayerIndex] == 6);
     }
 
     /**

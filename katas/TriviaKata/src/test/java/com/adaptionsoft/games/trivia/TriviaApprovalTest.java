@@ -34,7 +34,8 @@ public class TriviaApprovalTest {
 
         for (Integer roll:rolls) {
             aGame.roll(roll);
-            Boolean answer = aGame.wasCorrectlyAnswered();
+            Boolean answer = !aGame.wasCorrectlyAnswered();
+            aGame.nextPlayer();
             answers.add(String.valueOf(answer));
         }
 
