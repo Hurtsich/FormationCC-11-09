@@ -18,11 +18,11 @@ import java.util.*;
 /// </summary>
 public class Game {
     public static final int NB_TURNS = 50;
-    public final int MAX_FIVE = 6;
+    public final int PLAYER_MAX = 6;
     List<String> players = new ArrayList<>();
-    int[] places = new int[6];
-    int[] purses = new int[6];
-    boolean[] inPenaltyBox = new boolean[MAX_FIVE];
+    int[] places = new int[PLAYER_MAX];
+    int[] purses = new int[PLAYER_MAX];
+    boolean[] inPenaltyBox = new boolean[PLAYER_MAX];
 
     List<String> popQuestions = new LinkedList<>();
     List<String> scienceQuestions = new LinkedList<>();
@@ -123,18 +123,7 @@ public class Game {
     public Boolean wasCorrectlyAnswered() {
         if (inPenaltyBox[currentPlayerIndex]) {
             if (isGettingOutOfPenaltyBox) {
-                System.out.println("Answer was correct!!!!");
-                purses[currentPlayerIndex]++;
-                System.out.println(players.get(currentPlayerIndex)
-                        + " now has "
-                        + purses[currentPlayerIndex]
-                        + " Gold Coins.");
-
-                boolean winner = !(purses[currentPlayerIndex] == 6);
-                currentPlayerIndex++;
-                if (currentPlayerIndex == players.size()) currentPlayerIndex = 0;
-
-                return winner;
+                extracted();
             } else {
                 currentPlayerIndex++;
                 if (currentPlayerIndex == players.size()) currentPlayerIndex = 0;
@@ -144,19 +133,27 @@ public class Game {
 
         } else {
 
-            System.out.println("Answer was corrent!!!!");
-            purses[currentPlayerIndex]++;
-            System.out.println(players.get(currentPlayerIndex)
-                    + " now has "
-                    + purses[currentPlayerIndex]
-                    + " Gold Coins.");
-
-            boolean winner = !(purses[currentPlayerIndex] == 6);
-            currentPlayerIndex++;
-            if (currentPlayerIndex == players.size()) currentPlayerIndex = 0;
-
-            return winner;
+            return extracted();
         }
+    }
+
+    private boolean extracted() {
+        System.out.println("Answer was corrent!!!!");
+        purses[currentPlayerIndex]++;
+        System.out.println(players.get(currentPlayerIndex)
+                + " now has "
+                + purses[currentPlayerIndex]
+                + " Gold Coins.");
+
+        boolean winner = hasWinner();
+        currentPlayerIndex++;
+        if (currentPlayerIndex == players.size()) currentPlayerIndex = 0;
+
+        return winner;
+    }
+
+    private boolean hasWinner() {
+        return !(purses[currentPlayerIndex] == 6);
     }
 
     /**

@@ -14,4 +14,7 @@
     <orderEntry type="library" scope="TEST" name="Maven: com.approvaltests:approvaltests:3.2.0" level="project" />
     <orderEntry type="library" scope="TEST" name="Maven: com.approvaltests:approvaltests-util:3.2.0" level="project" />
   </component>
+  <component name="SonarLintModuleSettings">
+    <option name="uniqueId" value="d52f0edc-8704-46b8-9a82-8e08615417d5" />
+  </component>
 </module>
